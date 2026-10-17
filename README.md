@@ -1,54 +1,142 @@
-<p align="center">
-  <a href="https://roots.io/bedrock/">
-    <img alt="Bedrock" src="https://cdn.roots.io/app/uploads/logo-bedrock.svg" height="100">
-  </a>
-</p>
+# wp-project
 
-<p align="center">
-  <a href="https://packagist.org/packages/roots/bedrock"><img alt="Packagist Installs" src="https://img.shields.io/packagist/dt/roots/bedrock?label=projects%20created&colorB=2b3072&colorA=525ddc&style=flat-square"></a>
-  <a href="https://packagist.org/packages/roots/wordpress"><img alt="roots/wordpress Packagist Downloads" src="https://img.shields.io/packagist/dt/roots/wordpress?label=roots%2Fwordpress%20downloads&logo=roots&logoColor=white&colorB=2b3072&colorA=525ddc&style=flat-square"></a>
-  <img src="https://img.shields.io/badge/dynamic/json.svg?url=https://raw.githubusercontent.com/roots/bedrock/master/composer.json&label=wordpress&logo=roots&logoColor=white&query=$.require[%22roots/wordpress%22]&colorB=2b3072&colorA=525ddc&style=flat-square">
-  <a href="https://github.com/roots/bedrock/actions/workflows/ci.yml"><img alt="Build Status" src="https://img.shields.io/github/actions/workflow/status/roots/bedrock/ci.yml?branch=master&logo=github&label=CI&style=flat-square"></a>
-  <a href="https://twitter.com/rootswp"><img alt="Follow Roots" src="https://img.shields.io/badge/follow%20@rootswp-1da1f2?logo=twitter&logoColor=ffffff&message=&style=flat-square"></a>
-  <a href="https://github.com/sponsors/roots"><img src="https://img.shields.io/badge/sponsor%20roots-525ddc?logo=github&style=flat-square&logoColor=ffffff&message=" alt="Sponsor Roots"></a>
-</p>
+A reusable WordPress project starter by IndieBranch, based on [Roots Bedrock](https://roots.io/bedrock/). Uses Composer for dependency management, environment-based configuration, and `public/` as the document root.
 
-<p align="center">WordPress boilerplate with Composer, easier configuration, and an improved folder structure</p>
+## Requirements
 
-<p align="center">
-  <a href="https://roots.io/bedrock/">Website</a> &nbsp;&nbsp; <a href="https://roots.io/bedrock/docs/installation/">Documentation</a> &nbsp;&nbsp; <a href="https://github.com/roots/bedrock/releases">Releases</a> &nbsp;&nbsp; <a href="https://discourse.roots.io/">Community</a>
-</p>
+- [DDEV](https://ddev.com/) and a supported Docker provider for the recommended local setup.
+- Git.
 
-## Support us
+DDEV provides PHP, Composer, a database, and WP-CLI. PHP 8.5 is recommended for the current dependency lock file. Without DDEV, provide these tools yourself and configure your web server to serve `public/`, not the repository root.
 
-Roots is an independent open source org, supported only by developers like you. Your sponsorship funds [WP Packages](https://wp-packages.org/) and the entire Roots ecosystem, and keeps them independent. Support us by purchasing [Radicle](https://roots.io/radicle/) or [sponsoring us on GitHub](https://github.com/sponsors/roots) — sponsors get access to our private Discord.
+## Getting started
 
-### Sponsors
+### Clone the repository
 
-<a href="https://carrot.com/"><img src="https://cdn.roots.io/app/uploads/carrot.svg" alt="Carrot" height="90"></a> <a href="https://wordpress.com/"><img src="https://cdn.roots.io/app/uploads/wordpress.svg" alt="WordPress.com" height="90"></a> <a href="https://www.itineris.co.uk/"><img src="https://cdn.roots.io/app/uploads/itineris.svg" alt="Itineris" height="90"></a> <a href="https://kinsta.com/?kaid=OFDHAJIXUDIV"><img src="https://cdn.roots.io/app/uploads/kinsta.svg" alt="Kinsta" height="90"></a>
+```bash
+git clone https://github.com/indiebranch/wp-project.git
+cd wp-project
+```
 
-## Overview
+### Configure the environment
 
-Bedrock is a WordPress boilerplate for developers that want to manage their projects with Git and Composer. Much of the philosophy behind Bedrock is inspired by the [Twelve-Factor App](http://12factor.net/) methodology, including the [WordPress specific version](https://roots.io/twelve-factor-wordpress/).
+```bash
+cp .env.example .env
+```
 
-- Better folder structure
-- Dependency management with [Composer](https://getcomposer.org)
-  - [`roots/wordpress`](https://wp-packages.org/wordpress-core) package for WordPress core
-  - [WP Packages](https://wp-packages.org/) repository for WordPress plugins and themes
-- Easy WordPress configuration with environment specific files
-- Environment variables with [Dotenv](https://github.com/vlucas/phpdotenv)
-- Autoloader for mu-plugins (use regular plugins as mu-plugins)
+Edit `.env` with your database credentials and site URL. For DDEV, use:
 
-## Getting Started
+```dotenv
+DB_HOST='db'
+DB_NAME='db'
+DB_USER='db'
+DB_PASSWORD='db'
+WP_ENV='development'
+WP_ENVIRONMENT_TYPE='local'
+```
 
-See the [Bedrock installation documentation](https://roots.io/bedrock/docs/installation/).
+Generate fresh values at [Roots Salts](https://roots.io/salts.html) and replace all eight authentication key/salt placeholders. Keep `.env` out of version control.
 
-## Community
+### Start the local environment
 
-Keep track of development and community news.
+If `.ddev/config.yaml` is not present, configure DDEV first:
 
-- Join us on Discord by [sponsoring us on GitHub](https://github.com/sponsors/roots)
-- Join us on [Roots Discourse](https://discourse.roots.io/)
-- Follow [@rootswp on Twitter](https://twitter.com/rootswp)
-- Follow the [Roots Blog](https://roots.io/blog/)
-- Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
+```bash
+ddev config --project-type=wp-bedrock --docroot=public --php-version=8.5
+```
+
+Start DDEV and install the locked dependencies:
+
+```bash
+ddev start
+ddev composer install
+ddev describe
+```
+
+Set `WP_HOME` in `.env` to the HTTPS project URL shown by `ddev describe`. Keep `WP_SITEURL` as `"${WP_HOME}/wp"`.
+
+### Install WordPress
+
+Open the WordPress installer and follow the setup steps:
+
+```bash
+ddev launch /wp/wp-admin/install.php
+```
+
+The site is served at `WP_HOME`; the admin area is at `WP_HOME/wp/wp-admin/`.
+
+## Development
+
+### Common commands
+
+Run these from the repository root:
+
+| Command | Purpose |
+| --- | --- |
+| `ddev start` | Start the local environment |
+| `ddev stop` | Stop the local environment |
+| `ddev launch` | Open the site |
+| `ddev composer install` | Install dependencies from `composer.lock` |
+| `ddev composer lint` | Check PHP formatting with Pint |
+| `ddev composer lint:fix` | Apply PHP formatting fixes |
+| `ddev composer test` | Run the Pest test suite |
+| `ddev wp plugin list` | List installed WordPress plugins |
+
+Outside DDEV, use `composer` and `wp` directly.
+
+### Managing plugins and themes
+
+Manage third-party plugins and themes through Composer so installations can be reproduced. Packages are available through [WP Packages](https://wp-packages.org/).
+
+For example:
+
+```bash
+ddev composer require wp-plugin/query-monitor
+```
+
+Commit both `composer.json` and `composer.lock` when dependencies change. WordPress core, installed plugins, and the bundled Twenty Twenty-Five theme are excluded from Git. Add ignore rules for any additional Composer-managed themes; commit your own custom theme source.
+
+## Project structure
+
+```text
+config/              Application and environment-specific configuration
+public/              Web server document root
+  app/               WordPress content directory
+    mu-plugins/      Must-use plugins and Bedrock autoloader
+    plugins/         Composer-installed plugins
+    themes/          Installed and custom themes
+    uploads/         Uploaded media, excluded from Git
+  wp/                Composer-installed WordPress core
+tests/               Automated tests
+vendor/              Composer dependencies, excluded from Git
+.env.example         Environment variable template
+composer.json        Project metadata, dependencies, and scripts
+composer.lock        Locked dependency versions
+```
+
+The `public/` directory replaces Bedrock's default `web/` directory.
+
+## Configuration
+
+Use `.env` for installation-specific values. See [`.env.example`](.env.example) for variable descriptions. Shared application settings live in `config/application.php`.
+
+### Environment settings
+
+- `WP_ENV` selects overrides from `config/environments/{WP_ENV}.php`. Use `development` for local development, `staging` for staging, and `production` for production. Production uses the base application configuration.
+- `WP_ENVIRONMENT_TYPE` tells WordPress and plugins what kind of environment is running. Use `local` for local development; otherwise match `WP_ENV`. If omitted, it defaults to `WP_ENV` for supported values.
+
+For local development, keep `WP_ENV='development'` and `WP_ENVIRONMENT_TYPE='local'`. There is no `local.php` configuration file.
+
+### Debugging and scheduled tasks
+
+With `WP_ENV='development'`, `config/environments/development.php` enables `WP_DEBUG` and defaults `WP_DEBUG_LOG` to `true`. Set `WP_DEBUG_LOG=false` in `.env` to disable logging, or provide an absolute log file path. `WP_DEBUG` itself is configured in PHP, not read from `.env`.
+
+Request-triggered WordPress cron is enabled by default. Set `DISABLE_WP_CRON=true` only when an external scheduler runs WordPress cron.
+
+## License and attribution
+
+Maintained by Nomad Labs Ltd trading as IndieBranch.
+
+Based on [Roots Bedrock](https://github.com/roots/bedrock), originally developed by Roots Software LLC. Bedrock and this starter are licensed under the [MIT license](LICENSE.md). WordPress and installed plugins and themes retain their own licenses.
+
+See the [Bedrock documentation](https://roots.io/bedrock/docs/) for further details on the underlying configuration and architecture.

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fa82d3ceb0b72d24b8ff7477d99316b4",
+    "content-hash": "415e9eaccfb7d29b74ad259c7e3fc914",
     "packages": [
         {
             "name": "composer/installers",
@@ -1040,6 +1040,37 @@
                 }
             ],
             "time": "2026-08-24T18:07:49+00:00"
+        },
+        {
+            "name": "wp-plugin/two-factor",
+            "version": "0.17.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/two-factor/",
+                "reference": "tags/0.17.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/two-factor.0.17.0.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "WordPress.org"
+                }
+            ],
+            "description": "Enable Two-Factor Authentication (2FA) using time-based one-time passwords (TOTP), email, and backup verification codes.",
+            "homepage": "https://wordpress.org/plugins/two-factor/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/two-factor/#developers",
+                "issues": "https://wordpress.org/support/plugin/two-factor",
+                "source": "https://plugins.svn.wordpress.org/two-factor"
+            },
+            "time": "2026-09-28T05:01:58+00:00"
         },
         {
             "name": "wp-theme/twentytwentyfive",

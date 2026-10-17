@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc2bd9c56f4d0bc3e090d1c4cfbd27e6",
+    "content-hash": "1d2faf6f1054b0a9531e75d3dc18fce4",
     "packages": [
         {
             "name": "composer/installers",
@@ -5356,6 +5356,68 @@
                 "source": "https://plugins.svn.wordpress.org/query-monitor"
             },
             "time": "2026-06-20T20:20:53+00:00"
+        },
+        {
+            "name": "wp-plugin/rewrite-rules-inspector",
+            "version": "1.6.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/rewrite-rules-inspector/",
+                "reference": "tags/1.6.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/rewrite-rules-inspector.1.6.0.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Automattic"
+                }
+            ],
+            "description": "A simple admin tool for inspecting rewrite rules.",
+            "homepage": "https://wordpress.org/plugins/rewrite-rules-inspector/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/rewrite-rules-inspector/#developers",
+                "issues": "https://wordpress.org/support/plugin/rewrite-rules-inspector",
+                "source": "https://plugins.svn.wordpress.org/rewrite-rules-inspector"
+            },
+            "time": "2026-03-23T19:23:21+00:00"
+        },
+        {
+            "name": "wp-plugin/transients-manager",
+            "version": "2.0.7",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/transients-manager/",
+                "reference": "tags/2.0.7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/transients-manager.2.0.7.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Syed Balkhi"
+                }
+            ],
+            "description": "Provides a familiar interface to view, search, edit, and delete Transients.",
+            "homepage": "https://wordpress.org/plugins/transients-manager/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/transients-manager/#developers",
+                "issues": "https://wordpress.org/support/plugin/transients-manager",
+                "source": "https://plugins.svn.wordpress.org/transients-manager"
+            },
+            "time": "2026-03-23T19:23:21+00:00"
         },
         {
             "name": "wp-plugin/user-switching",

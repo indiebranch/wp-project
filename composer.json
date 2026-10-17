@@ -37,6 +37,7 @@
     "wp-plugin/redirection": "^5.10",
     "wp-plugin/safe-svg": "^2.5",
     "wp-plugin/two-factor": "^0.17.0",
+    "wp-plugin/wp-robots-txt": "^1.3",
     "wp-theme/twentytwentyfive": "^1.0"
   },
   "require-dev": {

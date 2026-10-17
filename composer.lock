@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a3e749fbecdb7c11651828868f1de024",
+    "content-hash": "93835df79cb48b1de59f0b6d7ad7b25a",
     "packages": [
         {
             "name": "composer/installers",
@@ -1164,6 +1164,37 @@
                 "source": "https://plugins.svn.wordpress.org/two-factor"
             },
             "time": "2026-09-28T05:01:58+00:00"
+        },
+        {
+            "name": "wp-plugin/wp-robots-txt",
+            "version": "1.3.6",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-robots-txt/",
+                "reference": "tags/1.3.6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-robots-txt.1.3.6.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "George Pattichis"
+                }
+            ],
+            "description": "WP Robots Txt Allows you to edit the content of your robots.txt file.",
+            "homepage": "https://github.com/pattihis/wp-robots.txt",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/wp-robots-txt/#developers",
+                "issues": "https://wordpress.org/support/plugin/wp-robots-txt",
+                "source": "https://plugins.svn.wordpress.org/wp-robots-txt"
+            },
+            "time": "2026-08-24T20:16:16+00:00"
         },
         {
             "name": "wp-theme/twentytwentyfive",

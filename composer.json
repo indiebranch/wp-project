@@ -34,6 +34,7 @@
     "roots/wp-config": "^1.0",
     "vlucas/phpdotenv": "^5.0",
     "wp-plugin/fluent-smtp": "^2.4",
+    "wp-plugin/redirection": "^5.10",
     "wp-plugin/two-factor": "^0.17.0",
     "wp-theme/twentytwentyfive": "^1.0"
   },

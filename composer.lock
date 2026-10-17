@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4473d02df321da70a5fc4a358efd8984",
+    "content-hash": "6ed128ba43ea5e45816bb799ce047475",
     "packages": [
         {
             "name": "composer/installers",
@@ -5356,6 +5356,37 @@
                 "source": "https://plugins.svn.wordpress.org/query-monitor"
             },
             "time": "2026-06-20T20:20:53+00:00"
+        },
+        {
+            "name": "wp-plugin/wp-crontrol",
+            "version": "2.0.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-crontrol/",
+                "reference": "tags/2.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-crontrol.2.0.0.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Syed Balkhi"
+                }
+            ],
+            "description": "Take control of the cron events on your WordPress website or WooCommerce store with WP Crontrol.",
+            "homepage": "https://wp-crontrol.com",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/wp-crontrol/#developers",
+                "issues": "https://wordpress.org/support/plugin/wp-crontrol",
+                "source": "https://plugins.svn.wordpress.org/wp-crontrol"
+            },
+            "time": "2026-10-15T14:20:56+00:00"
         }
     ],
     "aliases": [],

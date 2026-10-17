@@ -1,27 +1,21 @@
 {
-  "name": "roots/bedrock",
+  "name": "indiebranch/wp-project",
   "type": "project",
   "license": "MIT",
-  "description": "WordPress boilerplate with Composer, easier configuration, and an improved folder structure",
-  "homepage": "https://roots.io/bedrock/",
+  "description": "A reusable WordPress project starter based on Roots Bedrock, with Composer and a public document root",
+  "homepage": "https://github.com/indiebranch/wp-project",
   "authors": [
     {
-      "name": "Scott Walkinshaw",
-      "email": "scott.walkinshaw@gmail.com",
-      "homepage": "https://github.com/swalkinshaw"
-    },
-    {
-      "name": "Ben Word",
-      "email": "ben@benword.com",
-      "homepage": "https://github.com/retlehs"
+      "name": "Nomad Labs Ltd trading as IndieBranch",
+      "homepage": "https://github.com/indiebranch"
     }
   ],
   "keywords": [
     "bedrock", "composer", "roots", "wordpress-composer", "wordpress", "wp-composer", "wp-config", "wp"
   ],
   "support": {
-    "issues": "https://github.com/roots/bedrock/issues",
-    "forum": "https://discourse.roots.io/category/bedrock"
+    "issues": "https://github.com/indiebranch/wp-project/issues",
+    "source": "https://github.com/indiebranch/wp-project"
   },
   "repositories": [
     {

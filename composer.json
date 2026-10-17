@@ -45,6 +45,7 @@
     "laravel/pint": "^1.0",
     "pestphp/pest": "^4.0",
     "wp-plugin/query-monitor": "^4.0",
+    "wp-plugin/user-switching": "^1.12",
     "wp-plugin/wp-crontrol": "^2.0"
   },
   "config": {

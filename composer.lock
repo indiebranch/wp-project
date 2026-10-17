@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ed128ba43ea5e45816bb799ce047475",
+    "content-hash": "fc2bd9c56f4d0bc3e090d1c4cfbd27e6",
     "packages": [
         {
             "name": "composer/installers",
@@ -5356,6 +5356,37 @@
                 "source": "https://plugins.svn.wordpress.org/query-monitor"
             },
             "time": "2026-06-20T20:20:53+00:00"
+        },
+        {
+            "name": "wp-plugin/user-switching",
+            "version": "1.12.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/user-switching/",
+                "reference": "tags/1.12.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/user-switching.1.12.2.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "John Blackbourn"
+                }
+            ],
+            "description": "Instant switching between user accounts in WordPress and WooCommerce.",
+            "homepage": "https://wordpress.org/plugins/user-switching/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/user-switching/#developers",
+                "issues": "https://wordpress.org/support/plugin/user-switching",
+                "source": "https://plugins.svn.wordpress.org/user-switching"
+            },
+            "time": "2026-08-29T20:46:10+00:00"
         },
         {
             "name": "wp-plugin/wp-crontrol",

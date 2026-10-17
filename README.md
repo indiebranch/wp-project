@@ -137,6 +137,9 @@ Request-triggered WordPress cron is enabled by default. Set `DISABLE_WP_CRON=tru
 
 Maintained by Nomad Labs Ltd trading as IndieBranch.
 
-Based on [Roots Bedrock](https://github.com/roots/bedrock), originally developed by Roots Software LLC. Bedrock and this starter are licensed under the [MIT license](LICENSE.md). WordPress and installed plugins and themes retain their own licenses.
+Based on [Roots Bedrock](https://github.com/roots/bedrock) by Roots Software LLC.
+
+Licensed under MIT, except where otherwise noted. See [LICENSE.md](LICENSE.md).
+WordPress and installed plugins and themes retain their own licenses.
 
 See the [Bedrock documentation](https://roots.io/bedrock/docs/) for further details on the underlying configuration and architecture.

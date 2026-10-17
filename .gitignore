@@ -1,17 +1,17 @@
 # Application
-web/app/plugins/*
-!web/app/plugins/.gitkeep
+public/app/plugins/*
+!public/app/plugins/.gitkeep
 # Ignore Composer-installed mu-plugin directories; single-file mu-plugins are tracked intentionally
-web/app/mu-plugins/*/
-web/app/themes/twentytwentyfive/
-web/app/upgrade
-web/app/uploads/*
-!web/app/uploads/.gitkeep
-web/app/cache/*
+public/app/mu-plugins/*/
+public/app/themes/twentytwentyfive/
+public/app/upgrade
+public/app/uploads/*
+!public/app/uploads/.gitkeep
+public/app/cache/*
 
 # WordPress
-web/wp
-web/.htaccess
+public/wp
+public/.htaccess
 
 # Logs
 *.log

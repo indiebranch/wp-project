@@ -33,7 +33,7 @@ $root_dir = dirname(__DIR__);
  *
  * @var non-falsy-string
  */
-$webroot_dir = $root_dir . '/web';
+$webroot_dir = $root_dir . '/public';
 
 /**
  * Use Dotenv to set required environment variables and load .env file in root

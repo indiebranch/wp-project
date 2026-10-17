@@ -1,9 +1,9 @@
 {
   "preset": "per",
   "exclude": [
-    "web/wp",
-    "web/app/mu-plugins/bedrock-disallow-indexing",
-    "web/app/plugins",
-    "web/app/themes/twentytwentyfive"
+    "public/wp",
+    "public/app/mu-plugins/bedrock-disallow-indexing",
+    "public/app/plugins",
+    "public/app/themes/twentytwentyfive"
   ]
 }

@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+
+## Description: Set up local theme and plugin sandbox development
+## Usage: sandbox setup
+## Example: ddev sandbox setup
+
+set -euo pipefail
+
+case "${1:-}" in
+  setup)
+    if [[ $# -ne 1 ]]; then
+      printf 'Usage: ddev sandbox setup\n' >&2
+      exit 2
+    fi
+    ;;
+  ''|-h|--help)
+    printf 'Usage: ddev sandbox setup\n'
+    exit 0
+    ;;
+  *)
+    printf 'Usage: ddev sandbox setup\n' >&2
+    exit 2
+    ;;
+esac
+
+root="${DDEV_APPROOT:?Run this command through DDEV on your host.}"
+
+for component in wp-theme wp-plugin; do
+  if [[ ! -e "$root/../$component/.git" ]]; then
+    printf 'Clone %s alongside wp-project before running this command.\n' "$component" >&2
+    exit 1
+  fi
+done
+
+cd "$root"
+
+exclude=$(git rev-parse --git-path info/exclude)
+if [[ "$exclude" != /* ]]; then
+  exclude="$root/$exclude"
+fi
+mkdir -p "$(dirname "$exclude")"
+touch "$exclude"
+
+for pattern in \
+  '/.ddev/docker-compose.sandbox.yaml' \
+  '/public/app/themes/wp-theme/' \
+  '/public/app/plugins/wp-plugin/' \
+  '/package.json' \
+  '/package-lock.json'; do
+  if ! grep -Fqx -- "$pattern" "$exclude"; then
+    printf '\n%s\n' "$pattern" >> "$exclude"
+  fi
+done
+
+compose="$root/.ddev/docker-compose.sandbox.yaml"
+if [[ ! -e "$compose" ]]; then
+  cat > "$compose" <<'YAML'
+services:
+  web:
+    volumes:
+      - "${DDEV_APPROOT}/../wp-theme:/var/www/html/public/app/themes/wp-theme"
+      - "${DDEV_APPROOT}/../wp-plugin:/var/www/html/public/app/plugins/wp-plugin"
+YAML
+fi
+
+ddev restart
+
+for directory in public/app/themes/wp-theme public/app/plugins/wp-plugin; do
+  expected="/var/www/html/$directory"
+  mounted_root=$(ddev exec git -C "$expected" rev-parse --show-toplevel)
+  if [[ "$mounted_root" != "$expected" ]]; then
+    printf 'Expected an independent repository at %s; check the sandbox mounts.\n' "$expected" >&2
+    exit 1
+  fi
+done
+
+ddev composer install --no-interaction --prefer-dist
+
+for component in wp-theme wp-plugin; do
+  if [[ -f "$root/../$component/composer.json" ]]; then
+    case "$component" in
+      wp-theme) directory=public/app/themes/wp-theme ;;
+      wp-plugin) directory=public/app/plugins/wp-plugin ;;
+    esac
+    ddev composer install --working-dir="$directory" --no-interaction --prefer-dist
+  fi
+done
+
+ddev exec --dir=/var/www/html node .ddev/scripts/sandbox-workspaces.mjs
+
+if [[ -f "$root/package.json" ]]; then
+  ddev npm install
+  ddev npm run build
+fi
+
+printf '\nSandbox setup complete. Activate valid starters when ready:\n'
+printf '  ddev wp theme activate wp-theme\n'
+printf '  ddev wp plugin activate wp-plugin\n'

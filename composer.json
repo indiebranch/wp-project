@@ -108,8 +108,8 @@
       "@analyse",
       "@test"
     ],
-    "lint": "pint --test",
-    "lint:fix": "pint",
+    "lint": "pint --test config tests public/index.php public/wp-config.php public/app/mu-plugins public/app/themes",
+    "lint:fix": "pint config tests public/index.php public/wp-config.php public/app/mu-plugins public/app/themes",
     "lint:syntax": "parallel-lint --exclude vendor --exclude node_modules config tests public/index.php public/wp-config.php public/app/mu-plugins public/app/themes",
     "test": "pest"
   }

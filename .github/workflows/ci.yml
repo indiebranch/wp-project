@@ -39,16 +39,33 @@ jobs:
       - name: Run checks
         run: composer ci
 
-      - name: Check release script syntax
-        run: bash -n bin/build-release
+      - name: Check command syntax
+        run: |
+          bash -n bin/build-release
+          if [[ -f .ddev/commands/host/project ]]; then
+            bash -n .ddev/commands/host/project
+          fi
+          if [[ -f .ddev/commands/host/sandbox ]]; then
+            bash -n .ddev/commands/host/sandbox
+          fi
 
       - name: Set up Node
-        if: hashFiles('package.json') != ''
+        if: hashFiles('package.json', '.ddev/scripts/*.mjs', 'tests/Tooling/*.test.mjs') != ''
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: '24'
-          cache: npm
+          cache: ${{ hashFiles('package-lock.json') != '' && 'npm' || '' }}
           cache-dependency-path: package-lock.json
+
+      - name: Check and test project tooling
+        if: hashFiles('.ddev/scripts/*.mjs', 'tests/Tooling/*.test.mjs') != ''
+        run: |
+          shopt -s nullglob
+          for script in .ddev/scripts/*.mjs; do node --check "$script"; done
+          tooling_tests=(tests/Tooling/*.test.mjs)
+          if (( ${#tooling_tests[@]} )); then
+            node --test "${tooling_tests[@]}"
+          fi
 
       - name: Build project assets
         if: hashFiles('package.json') != ''

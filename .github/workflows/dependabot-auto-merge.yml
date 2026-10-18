@@ -1,0 +1,75 @@
+name: Dependabot auto-merge
+
+# No PR code is checked out or executed with this workflow's write token.
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dependabot-auto-merge-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  auto-merge:
+    name: Enable eligible auto-merge
+    if: >-
+      vars.DEPENDABOT_AUTO_MERGE == 'true' &&
+      github.event.pull_request.user.login == 'dependabot[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.base.ref == github.event.repository.default_branch &&
+      !github.event.pull_request.draft
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PR_URL: ${{ github.event.pull_request.html_url }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+      GH_REPO: ${{ github.repository }}
+
+    steps:
+      - name: Reset the previous automated decision
+        run: |
+          enabled_by=$(gh pr view "$PR_URL" --json autoMergeRequest --jq '.autoMergeRequest.enabledBy.login // ""')
+          if [[ "$enabled_by" == 'github-actions[bot]' ]]; then
+            gh pr merge "$PR_URL" --disable-auto
+          fi
+
+      - name: Read verified Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98 # v3.1.0
+        with:
+          github-token: ${{ github.token }}
+
+      - name: Check changed files
+        id: files
+        if: >-
+          contains(fromJSON('["composer", "github_actions"]'), steps.metadata.outputs.package-ecosystem) &&
+          steps.metadata.outputs.directory == '/' &&
+          contains(fromJSON('["version-update:semver-patch", "version-update:semver-minor", "version-update:semver-major"]'), steps.metadata.outputs.update-type)
+        env:
+          ECOSYSTEM: ${{ steps.metadata.outputs.package-ecosystem }}
+        run: |
+          if gh api --paginate --slurp "repos/$GH_REPO/pulls/$PR_NUMBER/files" |
+            jq -e --arg ecosystem "$ECOSYSTEM" '
+              add | (length > 0) and all(.[];
+                .status == "modified" and (
+                  if $ecosystem == "composer" then
+                    .filename == "composer.json" or .filename == "composer.lock"
+                  elif $ecosystem == "github_actions" then
+                    .filename | test("^\\.github/workflows/[^/]+\\.ya?ml$")
+                  else false end
+                )
+              )' > /dev/null; then
+            echo 'eligible=true' >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Enable squash auto-merge
+        if: steps.files.outputs.eligible == 'true'
+        run: gh pr merge "$PR_URL" --auto --squash --match-head-commit "$HEAD_SHA"

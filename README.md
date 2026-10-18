@@ -111,6 +111,19 @@ ddev composer install
 ddev composer ci
 ```
 
+### Dependency auto-merge
+
+Auto-merge is opt-in for each repository. First protect `main` with required pull
+requests and the `PHP checks` status check, enable squash merging and **Allow
+auto-merge**, then set the Actions repository variable `DEPENDABOT_AUTO_MERGE` to
+`true`. Required human approvals still need to be supplied.
+
+Verified Dependabot patch, minor, and major updates are eligible, including grouped
+updates. Composer PRs may only modify the root `composer.json` and/or `composer.lock`;
+GitHub Actions PRs may only modify workflow YAML files in `.github/workflows/`.
+GitHub's required checks and approvals gate merging; the workflow does not approve
+PRs or bypass branch rules.
+
 ### Managing plugins and themes
 
 Manage third-party plugins and themes through Composer so installations can be reproduced. Packages are available through [WP Packages](https://wp-packages.org/).

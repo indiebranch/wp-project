@@ -92,6 +92,9 @@ Outside DDEV, use `composer` and `wp` directly.
 GitHub Actions runs the checks on pull requests and pushes to `main`, using PHP 8.5
 to match DDEV. It also verifies a production dependency installation with `--no-dev`.
 
+Composer's security audit includes WordPress advisories from
+[WP Sec Adv](https://github.com/typisttech/wpsecadv), sourced from Wordfence.
+
 Static analysis checks `config/` and project-owned mu-plugins at PHPStan level 6.
 WordPress APIs are supplied by stubs; analysis does not load WordPress or require a
 database. Add custom theme paths to `phpstan.neon.dist` when introducing a theme or plugin.

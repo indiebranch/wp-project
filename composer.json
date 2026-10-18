@@ -22,6 +22,16 @@
       "name": "wp-packages",
       "type": "composer",
       "url": "https://repo.wp-packages.org"
+    },
+    {
+      "name": "wpsecadv",
+      "type": "composer",
+      "url": "https://repo-wpsecadv.typist.tech",
+      "only": [
+        "wp-plugin/*",
+        "wp-theme/*",
+        "roots/wordpress-no-content"
+      ]
     }
   ],
   "require": {
@@ -54,6 +64,15 @@
     "wp-plugin/wp-crontrol": "^2.0"
   },
   "config": {
+    "policy": {
+      "advisories": {
+        "ignore-id": {
+          "WPSECADV/WF/9fda5e15-fdf9-4b67-93d3-2dbfa94aefe9/wordpress": {
+            "reason": "CVE-2017-14990: Accepted for this single-site starter; Multisite signup activation is not used. Exploitation requires database read access. Reassess before enabling Multisite registration."
+          }
+        }
+      }
+    },
     "optimize-autoloader": true,
     "preferred-install": "dist",
     "allow-plugins": {

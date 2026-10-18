@@ -1,0 +1,124 @@
+#!/usr/bin/env bash
+
+## Description: Initialize a project created from the wp-project template
+## Usage: project init <name> [--repository owner/repo]
+## Example: ddev project init acme-website
+
+set -euo pipefail
+
+usage() {
+  printf 'Usage: ddev project init <name> [--repository owner/repo]\n'
+}
+
+if [[ $# -eq 0 || "${1:-}" == --help || "${1:-}" == -h ]]; then
+  usage
+  exit 0
+fi
+
+if [[ "${1:-}" == init && "${2:-}" == --help ]]; then usage; exit 0; fi
+
+if [[ "${1:-}" != init || ( $# -ne 2 && $# -ne 4 ) ]]; then
+  usage >&2
+  exit 2
+fi
+
+name="$2"
+if [[ ! "$name" =~ ^[a-z][a-z0-9]*(-[a-z0-9]+)*$ || "$name" == wp-project ]]; then
+  printf 'Use a new lowercase project name, such as acme-website.\n' >&2
+  exit 2
+fi
+
+root="${DDEV_APPROOT:?Run this command through DDEV on your host.}"
+cd "$root"
+
+if [[ $# -eq 4 ]]; then
+  if [[ "$3" != --repository ]]; then usage >&2; exit 2; fi
+  repository="$4"
+else
+  origin=$(git remote get-url origin 2>/dev/null || true)
+  case "$origin" in
+    git@github.com:*) repository="${origin#git@github.com:}" ;;
+    https://github.com/*) repository="${origin#https://github.com/}" ;;
+    ssh://git@github.com/*) repository="${origin#ssh://git@github.com/}" ;;
+    *) printf 'Provide --repository owner/repo for the project GitHub repository.\n' >&2; exit 2 ;;
+  esac
+  repository="${repository%/}"
+  repository="${repository%.git}"
+fi
+
+if [[ ! "$repository" =~ ^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$ || "$repository" == indiebranch/wp-project ]]; then
+  printf 'Use a new project repository, or provide --repository owner/repo explicitly.\n' >&2
+  exit 2
+fi
+
+# Preserve environment contents even if normal DDEV startup generates settings.
+if [[ -L .env || ( -e .env && ! -f .env ) ]]; then
+  printf 'Run initialization before configuring a symlinked or non-file .env.\n' >&2
+  exit 1
+fi
+config_backup=$(mktemp)
+env_backup=$(mktemp)
+cp .ddev/config.yaml "$config_backup"
+had_env=false
+if [[ -f .env ]]; then
+  cp .env "$env_backup"
+  env_permissions=$(stat -c '%a' .env 2>/dev/null || stat -f '%Lp' .env)
+  had_env=true
+fi
+metadata_applied=false
+had_mounts=false
+if [[ -e .ddev/docker-compose.sandbox.yaml ]]; then had_mounts=true; fi
+
+cleanup() {
+  if [[ "$had_env" == true ]]; then
+    cp "$env_backup" .env
+    chmod "$env_permissions" .env
+  else
+    rm -f .env
+  fi
+  if [[ "$metadata_applied" == false ]]; then
+    cp "$config_backup" .ddev/config.yaml
+  fi
+  rm -f "$config_backup" "$env_backup"
+}
+trap cleanup EXIT
+
+# Give the new checkout a unique identity before using its container.
+ddev config --project-name="$name"
+ddev start
+ddev exec --dir=/var/www/html node .ddev/scripts/project-init.mjs "$name" "$repository"
+metadata_applied=true
+
+if [[ "$had_mounts" == true ]]; then ddev restart; fi
+
+ddev composer update --lock --no-install --no-scripts --no-interaction
+
+# Remove only exclusions written by sandbox setup; leave other local rules alone.
+exclude=$(git rev-parse --git-path info/exclude)
+if [[ "$exclude" != /* ]]; then exclude="$root/$exclude"; fi
+if [[ -f "$exclude" ]]; then
+  filtered=$(mktemp)
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    case "$line" in
+      '/.ddev/docker-compose.sandbox.yaml'|'/public/app/themes/wp-theme/'|'/public/app/plugins/wp-plugin/'|'/package.json'|'/package-lock.json') ;;
+      *) printf '%s\n' "$line" >> "$filtered" ;;
+    esac
+  done < "$exclude"
+  cat "$filtered" > "$exclude"
+  rm -f "$filtered"
+fi
+
+# Finish environment restoration before removing the one-time initializer.
+cleanup
+trap - EXIT
+
+for path in \
+  tests/Tooling/project-init.test.mjs \
+  docs/project-init.md \
+  .ddev/scripts/project-init.mjs \
+  .ddev/commands/host/project; do
+  rm -f "$root/$path"
+done
+
+printf '\nProject initialized. Review git diff, then commit the project identity and cleanup.\n'
+printf 'Continue with the README environment setup; .env contents are unchanged.\n'

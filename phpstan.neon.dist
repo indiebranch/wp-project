@@ -1,0 +1,15 @@
+parameters:
+    level: 6
+    tmpDir: .phpstan.cache
+
+    scanFiles:
+        - vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
+
+    paths:
+        - config
+        - public/app/mu-plugins
+
+    excludePaths:
+        analyse:
+            - public/app/mu-plugins/bedrock-autoloader.php
+            - public/app/mu-plugins/bedrock-disallow-indexing

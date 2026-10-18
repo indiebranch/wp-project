@@ -45,6 +45,8 @@
     "laravel/pint": "^1.0",
     "pestphp/pest": "^4.0",
     "php-parallel-lint/php-parallel-lint": "^1.4",
+    "php-stubs/wordpress-stubs": "^7.1",
+    "phpstan/phpstan": "^2.3",
     "wp-plugin/query-monitor": "^4.0",
     "wp-plugin/rewrite-rules-inspector": "^1.6",
     "wp-plugin/transients-manager": "^2.0",
@@ -78,11 +80,13 @@
     "wordpress-install-dir": "public/wp"
   },
   "scripts": {
+    "analyse": "phpstan analyse --configuration=phpstan.neon.dist --no-progress",
     "ci": [
       "@composer validate --no-check-publish",
       "@composer audit --locked",
       "@lint:syntax",
       "@lint",
+      "@analyse",
       "@test"
     ],
     "lint": "pint --test",

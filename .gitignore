@@ -30,5 +30,8 @@ phpunit.xml
 .phpunit.result.cache
 .phpunit.cache
 
+# PHPStan
+/.phpstan.cache
+
 # WP-CLI
 wp-cli.local.yml

@@ -139,6 +139,12 @@ ddev composer require wp-plugin/query-monitor
 
 Commit both `composer.json` and `composer.lock` when dependencies change. WordPress core, installed plugins, and the bundled Twenty Twenty-Five theme are excluded from Git. Add ignore rules for any additional Composer-managed themes; commit your own custom theme source.
 
+The root Composer autoloader maps the custom theme and plugin namespaces to their
+`src/` directories. Update those mappings when naming project-specific components,
+and declare their PHP runtime dependencies at the project root. One root Composer
+installation supplies the deployed site's PHP dependencies; nested manifests are
+for standalone component development, not automatically merged dependencies.
+
 ## Project structure
 
 ```text

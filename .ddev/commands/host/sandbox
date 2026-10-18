@@ -76,16 +76,6 @@ done
 
 ddev composer install --no-interaction --prefer-dist
 
-for component in wp-theme wp-plugin; do
-  if [[ -f "$root/../$component/composer.json" ]]; then
-    case "$component" in
-      wp-theme) directory=public/app/themes/wp-theme ;;
-      wp-plugin) directory=public/app/plugins/wp-plugin ;;
-    esac
-    ddev composer install --working-dir="$directory" --no-interaction --prefer-dist
-  fi
-done
-
 ddev exec --dir=/var/www/html node .ddev/scripts/sandbox-workspaces.mjs
 
 if [[ -f "$root/package.json" ]]; then

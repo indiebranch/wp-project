@@ -18,6 +18,20 @@ git clone https://github.com/indiebranch/wp-project.git
 cd wp-project
 ```
 
+### Initialize a new project
+
+For a new site, create a repository from this GitHub template and clone that new
+repository. From its root on your host, run:
+
+```bash
+ddev project init acme-website
+```
+
+This renames project metadata, removes sandbox files, and removes the initializer
+after success. It does not copy theme/plugin starters or configure `.env`.
+See [project initialization](docs/project-init.md)
+for options and the exact changes. Skip this step when developing wp-project itself.
+
 ### Configure the environment
 
 ```bash

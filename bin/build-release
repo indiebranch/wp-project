@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# Prepare a release from a clean checkout; publishing is handled by build.yml.
+set -euo pipefail
+
+branch="${1:?Usage: build-release main|develop OUTPUT_DIRECTORY}"
+destination="${2:?Usage: build-release main|develop OUTPUT_DIRECTORY}"
+root=$(pwd -P)
+source_sha="${SOURCE_SHA:-$(git rev-parse HEAD)}"
+
+case "$branch" in
+  main) composer_options=(--no-dev) ;;
+  develop) composer_options=() ;;
+  *) printf 'Unsupported source branch: %s\n' "$branch" >&2; exit 1 ;;
+esac
+
+if [[ ! "$source_sha" =~ ^[0-9a-f]{40}$ ]]; then
+  printf 'Expected a full source commit SHA.\n' >&2
+  exit 1
+fi
+
+destination=$(realpath -m "$destination")
+case "$destination" in
+  /|"$root"|"$root"/*)
+    printf 'The release directory must be outside the source checkout.\n' >&2
+    exit 1
+    ;;
+esac
+
+if [[ -d "$destination" && -n "$(ls -A "$destination")" ]]; then
+  printf 'Use an empty release directory.\n' >&2
+  exit 1
+fi
+
+composer install "${composer_options[@]}" --prefer-dist --optimize-autoloader --no-interaction --no-progress --no-scripts
+
+if [[ -f package.json ]]; then
+  npm ci
+  npm run build
+fi
+
+mkdir -p "$destination"
+rsync -a --delete --exclude-from=.deployignore ./ "$destination/"
+
+# Preserve server-local files under normal Git operations on the built branch.
+cp .deployignore "$destination/.gitignore"
+
+printf '{\n  "source_branch": "%s",\n  "source_commit": "%s"\n}\n' \
+  "$branch" "$source_sha" > "$destination/build-info.json"

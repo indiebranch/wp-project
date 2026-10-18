@@ -3,7 +3,7 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [main, develop]
   workflow_dispatch:
 
 permissions:
@@ -38,6 +38,21 @@ jobs:
 
       - name: Run checks
         run: composer ci
+
+      - name: Check release script syntax
+        run: bash -n bin/build-release
+
+      - name: Set up Node
+        if: hashFiles('package.json') != ''
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Build project assets
+        if: hashFiles('package.json') != ''
+        run: npm ci && npm run build
 
       - name: Verify production dependency installation
         run: composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction --no-progress

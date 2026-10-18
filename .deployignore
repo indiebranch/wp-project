@@ -1,0 +1,34 @@
+# Repository, local environment, and credentials
+.git
+/.github/
+/.ddev/
+/.gitignore
+/.gitattributes
+.env*
+auth.json
+*.log
+/public/.htaccess
+/public/app/uploads/
+/public/app/cache/
+/public/app/upgrade/
+
+# Development tooling and tests
+node_modules/
+.phpstan.cache/
+.phpunit.cache/
+phpunit.xml
+phpunit.xml.dist
+phpstan.neon
+phpstan.neon.dist
+pint.json
+/tests/
+/tools/
+/bin/
+/docs/
+/ruleset.json
+/public/app/themes/*/tests/
+/public/app/themes/*/tools/
+/public/app/plugins/*/tests/
+/public/app/plugins/*/tools/
+
+# Composer metadata, licenses, runtime src/, resources/, and compiled build/ stay.

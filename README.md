@@ -92,8 +92,9 @@ Outside DDEV, use `composer` and `wp` directly.
 
 ### Continuous integration
 
-GitHub Actions runs the checks on pull requests and pushes to `main`, using PHP 8.5
-to match DDEV. It also verifies a production dependency installation with `--no-dev`.
+GitHub Actions runs the checks on pull requests and pushes to `main` and `develop`,
+using PHP 8.5 to match DDEV. Root npm workspaces are built when package.json exists.
+It also verifies a production dependency installation with `--no-dev`.
 
 Composer's security audit includes WordPress advisories from
 [WP Sec Adv](https://github.com/typisttech/wpsecadv), sourced from Wordfence.
@@ -119,13 +120,20 @@ ddev composer ci
 Auto-merge is opt-in for each repository. First protect `main` with required pull
 requests and the `PHP checks` status check, enable squash merging and **Allow
 auto-merge**, then set the Actions repository variable `DEPENDABOT_AUTO_MERGE` to
-`true`. Required human approvals still need to be supplied.
+`true`. Configure the GitHub App described in the [built-branch guide](docs/builds.md)
+for automatic dependency approvals and merge-to-build events.
 
 Verified Dependabot patch, minor, and major updates are eligible, including grouped
 updates. Composer PRs may only modify the root `composer.json` and/or `composer.lock`;
 GitHub Actions PRs may only modify workflow YAML files in `.github/workflows/`.
-GitHub's required checks and approvals gate merging; the workflow does not approve
-PRs or bypass branch rules.
+GitHub's required checks gate merging. The App approves eligible dependency updates;
+without it, required approvals still need to be supplied. Branch rules are not bypassed.
+
+### Built branches
+
+The opt-in Build workflow prepares `main--built` and `develop--built` from successful
+CI runs. See [built branches and GitHub App setup](docs/builds.md) for permissions,
+repository settings, dependency policies, and output exclusions.
 
 ### Managing plugins and themes
 

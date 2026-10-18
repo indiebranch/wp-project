@@ -1,0 +1,140 @@
+name: Build
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main, develop]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+
+env:
+  SOURCE_BRANCH: ${{ github.event.workflow_run.head_branch }}
+  SOURCE_SHA: ${{ github.event.workflow_run.head_sha }}
+
+jobs:
+  prepare:
+    name: Prepare release
+    if: >-
+      vars.BUILD_ENABLED == 'true' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      contains(fromJSON('["push", "workflow_dispatch"]'), github.event.workflow_run.event) &&
+      github.event.workflow_run.head_repository.full_name == github.repository &&
+      contains(fromJSON('["main", "develop"]'), github.event.workflow_run.head_branch)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out the tested commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ env.SOURCE_SHA }}
+          persist-credentials: false
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
+        with:
+          php-version: '8.5'
+          extensions: mbstring, dom, xml, xmlwriter
+          coverage: none
+          tools: composer:v2
+
+      - name: Set up Node
+        if: hashFiles('package.json') != ''
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Prepare deployable files
+        run: bash bin/build-release "$SOURCE_BRANCH" "$RUNNER_TEMP/release"
+
+      - name: Archive release with file permissions
+        run: tar -C "$RUNNER_TEMP/release" -cf "$RUNNER_TEMP/release.tar" .
+
+      - name: Upload release
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: release
+          path: ${{ runner.temp }}/release.tar
+          if-no-files-found: error
+          retention-days: 3
+
+  publish:
+    name: Publish built branch
+    needs: prepare
+    if: vars.AUTOMATION_APP_ID != ''
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - name: Create publishing token
+        id: app
+        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
+        with:
+          app-id: ${{ vars.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_APP_PRIVATE_KEY }}
+          permission-contents: write
+
+      - name: Check out repository for publishing
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ env.SOURCE_SHA }}
+          token: ${{ steps.app.outputs.token }}
+          path: publish
+
+      - name: Download release
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: release
+          path: ${{ runner.temp }}
+
+      - name: Publish current release
+        working-directory: publish
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          GH_REPO: ${{ github.repository }}
+          APP_SLUG: ${{ steps.app.outputs.app-slug }}
+        run: |
+          current_sha=$(gh api "repos/$GH_REPO/git/ref/heads/$SOURCE_BRANCH" --jq '.object.sha')
+          if [[ "$current_sha" != "$SOURCE_SHA" ]]; then
+            echo 'Skipping a stale build; the source branch has advanced.'
+            exit 0
+          fi
+
+          built_branch="${SOURCE_BRANCH}--built"
+          if [[ -n "$(git ls-remote --heads origin "refs/heads/$built_branch")" ]]; then
+            git fetch --depth=1 origin "refs/heads/$built_branch"
+            git checkout -B "$built_branch" FETCH_HEAD
+          else
+            git checkout --orphan "$built_branch"
+            git rm -rf .
+          fi
+
+          mkdir -p "$RUNNER_TEMP/release"
+          tar -xf "$RUNNER_TEMP/release.tar" -C "$RUNNER_TEMP/release"
+          rsync -a --delete --exclude='.git/' "$RUNNER_TEMP/release/" ./
+          git add --all --force
+
+          if git diff --cached --quiet; then
+            echo 'Release output is unchanged.'
+            exit 0
+          fi
+
+          git -c user.name="${APP_SLUG}[bot]" \
+            -c user.email="${APP_SLUG}[bot]@users.noreply.github.com" \
+            commit -m "build: publish $SOURCE_BRANCH from $SOURCE_SHA"
+
+          current_sha=$(gh api "repos/$GH_REPO/git/ref/heads/$SOURCE_BRANCH" --jq '.object.sha')
+          if [[ "$current_sha" != "$SOURCE_SHA" ]]; then
+            echo 'Skipping publication; the source branch advanced while preparing the commit.'
+            exit 0
+          fi
+          git push origin "HEAD:refs/heads/$built_branch"

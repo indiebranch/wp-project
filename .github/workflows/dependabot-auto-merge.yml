@@ -32,12 +32,33 @@ jobs:
       PR_NUMBER: ${{ github.event.pull_request.number }}
       HEAD_SHA: ${{ github.event.pull_request.head.sha }}
       GH_REPO: ${{ github.repository }}
+      AUTOMATION_BOT: github-actions[bot]
 
     steps:
+      - name: Create automation token
+        id: app
+        if: vars.AUTOMATION_APP_ID != ''
+        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
+        with:
+          app-id: ${{ vars.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+          permission-workflows: write
+
+      - name: Use App identity
+        if: steps.app.outputs.token != ''
+        env:
+          APP_TOKEN: ${{ steps.app.outputs.token }}
+          APP_SLUG: ${{ steps.app.outputs.app-slug }}
+        run: |
+          echo "GH_TOKEN=$APP_TOKEN" >> "$GITHUB_ENV"
+          echo "AUTOMATION_BOT=${APP_SLUG}[bot]" >> "$GITHUB_ENV"
+
       - name: Reset the previous automated decision
         run: |
           enabled_by=$(gh pr view "$PR_URL" --json autoMergeRequest --jq '.autoMergeRequest.enabledBy.login // ""')
-          if [[ "$enabled_by" == 'github-actions[bot]' ]]; then
+          if [[ "$enabled_by" == 'github-actions[bot]' || "$enabled_by" == "$AUTOMATION_BOT" ]]; then
             gh pr merge "$PR_URL" --disable-auto
           fi
 
@@ -69,6 +90,14 @@ jobs:
               )' > /dev/null; then
             echo 'eligible=true' >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Approve verified dependency update
+        if: steps.files.outputs.eligible == 'true' && steps.app.outputs.token != ''
+        run: >-
+          gh api --method POST "repos/$GH_REPO/pulls/$PR_NUMBER/reviews"
+          -f event=APPROVE -f commit_id="$HEAD_SHA"
+          -f body='Automated dependency-file approval. Required CI checks still apply.'
+          --silent
 
       - name: Enable squash auto-merge
         if: steps.files.outputs.eligible == 'true'

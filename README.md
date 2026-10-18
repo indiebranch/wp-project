@@ -77,12 +77,26 @@ Run these from the repository root:
 | `ddev stop` | Stop the local environment |
 | `ddev launch` | Open the site |
 | `ddev composer install` | Install dependencies from `composer.lock` |
+| `ddev composer ci` | Run Composer validation, security audit, PHP checks, and tests |
+| `ddev composer lint:syntax` | Check PHP syntax with Parallel Lint |
 | `ddev composer lint` | Check PHP formatting with Pint |
 | `ddev composer lint:fix` | Apply PHP formatting fixes |
 | `ddev composer test` | Run the Pest test suite |
 | `ddev wp plugin list` | List installed WordPress plugins |
 
 Outside DDEV, use `composer` and `wp` directly.
+
+### Continuous integration
+
+GitHub Actions runs the checks on pull requests and pushes to `main`, using PHP 8.5
+to match DDEV. It also verifies a production dependency installation with `--no-dev`.
+
+To run the checks locally:
+
+```bash
+ddev composer install
+ddev composer ci
+```
 
 ### Managing plugins and themes
 

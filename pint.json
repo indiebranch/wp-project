@@ -1,6 +1,7 @@
 {
   "preset": "per",
   "exclude": [
+    ".ddev",
     "public/wp",
     "public/app/mu-plugins/bedrock-disallow-indexing",
     "public/app/plugins",

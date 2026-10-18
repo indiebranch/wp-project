@@ -33,7 +33,7 @@ ddev sandbox setup
 ```
 
 The host command adds local Git exclusions, creates the sandbox Compose override if
-missing, restarts DDEV, and installs root and starter Composer dependencies. It adds
+missing, restarts DDEV, and installs the root Composer dependencies and autoloader. It adds
 starters with build scripts to the local npm workspaces, installs npm dependencies,
 and builds assets. PHP-only starters are not added as npm workspaces.
 
@@ -116,7 +116,37 @@ For plugin work:
 cd /var/www/html/public/app/plugins/wp-plugin
 ```
 
-Run Git commands and component-specific build commands from the corresponding repository.
+Run Git commands from the corresponding repository. In the sandbox, install PHP
+dependencies at the project root; the root autoloader supplies the starters' classes.
+
+## PHP autoloading
+
+The root composer.json maps `IndieBranch\Theme\` and `IndieBranch\WpPlugin\` to
+the mounted starters' `src/` directories. Bedrock loads `vendor/autoload.php` before
+WordPress loads the theme and plugins, so one root installation is sufficient:
+
+```bash
+ddev composer install
+```
+
+After changing namespace mappings, run `ddev composer dump-autoload`.
+The root also maps the plugin test namespace. Run its unit tests with the project's
+tools:
+
+```bash
+ddev exec vendor/bin/pest public/app/plugins/wp-plugin/tests
+```
+
+Nested composer.json files are not automatically merged. Any PHP library needed
+by project-owned code must be in the root `require` section. In a derived project,
+update the namespace/path mappings for its custom code, include that source in Git,
+and add its source and test paths to the project's analysis and test configuration.
+Deploy the root `vendor/` with the project; nested vendor directories are unnecessary.
+
+For standalone plugin development outside Bedrock, install dependencies inside the
+plugin instead. The plugin falls back to that local autoloader when the project
+has not supplied its classes. The theme retains explicit file loading as its
+standalone fallback.
 
 ## 6. Build from the project root
 

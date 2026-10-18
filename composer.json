@@ -63,6 +63,17 @@
     "wp-plugin/user-switching": "^1.12",
     "wp-plugin/wp-crontrol": "^2.0"
   },
+  "autoload": {
+    "psr-4": {
+      "IndieBranch\\Theme\\": "public/app/themes/wp-theme/src/",
+      "IndieBranch\\WpPlugin\\": "public/app/plugins/wp-plugin/src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "IndieBranch\\WpPlugin\\Tests\\": "public/app/plugins/wp-plugin/tests/"
+    }
+  },
   "config": {
     "policy": {
       "advisories": {

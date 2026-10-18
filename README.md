@@ -95,6 +95,11 @@ to match DDEV. It also verifies a production dependency installation with `--no-
 Composer's security audit includes WordPress advisories from
 [WP Sec Adv](https://github.com/typisttech/wpsecadv), sourced from Wordfence.
 
+The `Dependency audit` workflow also checks the default branch's lock file daily
+at 03:00 UTC and can be run manually from GitHub Actions. Unignored advisories
+fail the workflow. Enable Actions failure notifications in your GitHub notification
+settings; this workflow reports findings without changing dependencies.
+
 Static analysis checks `config/` and project-owned mu-plugins at PHPStan level 6.
 WordPress APIs are supplied by stubs; analysis does not load WordPress or require a
 database. Add custom theme paths to `phpstan.neon.dist` when introducing a theme or plugin.

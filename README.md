@@ -67,6 +67,9 @@ The site is served at `WP_HOME`; the admin area is at `WP_HOME/wp/wp-admin/`.
 
 ## Development
 
+To develop the reusable theme and plugin starters in this installation, follow the
+[sandbox setup](docs/sandbox.md).
+
 ### Common commands
 
 Run these from the repository root:

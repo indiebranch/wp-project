@@ -1,0 +1,11 @@
+# Optional Bedrock Multisite routing. Copy to multisite.conf and run ddev restart.
+# Included in DDEV's server block; works with subdomain and subdirectory networks.
+
+# Canonical WordPress admin URL, including a subsite prefix.
+rewrite ^(.*/wp-admin)$ $scheme://$http_host$1/ permanent;
+
+# WordPress lives in /wp, while the public network lives at /.
+rewrite ^/(?:(?!wp/)[^/]+/)?(wp-(?:admin|includes)(?:/.*)?|wp-[^/]+\.php)$ /wp/$1 last;
+
+# Subdirectory sites may generate /site/wp/... core URLs.
+rewrite ^/[^/]+/wp/(.*)$ /wp/$1 last;

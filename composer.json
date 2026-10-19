@@ -79,7 +79,7 @@
       "advisories": {
         "ignore-id": {
           "WPSECADV/WF/9fda5e15-fdf9-4b67-93d3-2dbfa94aefe9/wordpress": {
-            "reason": "CVE-2017-14990: Accepted for this single-site starter; Multisite signup activation is not used. Exploitation requires database read access. Reassess before enabling Multisite registration."
+            "reason": "CVE-2017-14990: Accepted for single-site installations and privately managed Multisite networks. The private-multisite mu-plugin disables network self-registration and site-admin user registration. Provision users/sites through Network Admin or WP-CLI; check for pending signups on conversion. Plaintext signup activation keys remain an upstream risk requiring database read access. Reassess before enabling any signup/activation workflow. See docs/multisite.md."
           }
         }
       }

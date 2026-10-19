@@ -14,12 +14,14 @@ final class TwoFactorPolicyTest extends TestCase
         array $roles,
         bool $already_required,
         bool $expected,
+        bool $multisite = false,
+        bool $super_admin = false,
     ): void {
         // Constants cannot be redefined, so evaluate each case in a fresh process.
         $process = new Process([
             PHP_BINARY,
             dirname(__DIR__) . '/Support/run-two-factor-policy.php',
-            json_encode([$enforce, $roles, $already_required], JSON_THROW_ON_ERROR),
+            json_encode([$enforce, $roles, $already_required, $multisite, $super_admin], JSON_THROW_ON_ERROR),
         ]);
         $process->mustRun();
 
@@ -34,5 +36,13 @@ final class TwoFactorPolicyTest extends TestCase
         yield 'preserves administrator 2FA when disabled' => [false, ['administrator'], true, true];
         yield 'does not enforce enrollment for other roles' => [true, ['editor'], false, false];
         yield 'preserves voluntary 2FA for other roles' => [true, ['editor'], true, true];
+        yield 'requires super-admin 2FA without a site role' => [true, [], false, true, true, true];
+        yield 'requires super-admin 2FA with a non-admin site role' => [true, ['subscriber'], false, true, true, true];
+        yield 'defaults to enforcing super-admin 2FA' => [null, [], false, true, true, true];
+        yield 'allows super-admin enrollment when disabled' => [false, [], false, false, true, true];
+        yield 'preserves super-admin 2FA when disabled' => [false, [], true, true, true, true];
+        yield 'does not enforce 2FA for ordinary network users' => [true, ['editor'], false, false, true, false];
+        yield 'preserves voluntary 2FA for ordinary network users' => [true, ['editor'], true, true, true, false];
+        yield 'still requires site-admin 2FA in Multisite' => [true, ['administrator'], false, true, true, false];
     }
 }

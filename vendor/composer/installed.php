@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'indiebranch/wp-project',
-        'pretty_version' => 'dev-14ecfc62e8a222bbc07f40ecd6177d2bf21a6f8f',
-        'version' => 'dev-14ecfc62e8a222bbc07f40ecd6177d2bf21a6f8f',
-        'reference' => '14ecfc62e8a222bbc07f40ecd6177d2bf21a6f8f',
+        'pretty_version' => 'dev-a6ada1fe3948fcfb50d1c14c5f96264cd17d165f',
+        'version' => 'dev-a6ada1fe3948fcfb50d1c14c5f96264cd17d165f',
+        'reference' => 'a6ada1fe3948fcfb50d1c14c5f96264cd17d165f',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -29,9 +29,9 @@
             'dev_requirement' => false,
         ),
         'indiebranch/wp-project' => array(
-            'pretty_version' => 'dev-14ecfc62e8a222bbc07f40ecd6177d2bf21a6f8f',
-            'version' => 'dev-14ecfc62e8a222bbc07f40ecd6177d2bf21a6f8f',
-            'reference' => '14ecfc62e8a222bbc07f40ecd6177d2bf21a6f8f',
+            'pretty_version' => 'dev-a6ada1fe3948fcfb50d1c14c5f96264cd17d165f',
+            'version' => 'dev-a6ada1fe3948fcfb50d1c14c5f96264cd17d165f',
+            'reference' => 'a6ada1fe3948fcfb50d1c14c5f96264cd17d165f',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

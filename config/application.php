@@ -92,15 +92,32 @@ if (!defined('WP_DEVELOPMENT_MODE')) {
 /**
  * URLs
  */
-Config::define('WP_HOME', env('WP_HOME'));
-Config::define('WP_SITEURL', env('WP_SITEURL'));
+// Multisite uses each site's database URLs rather than overriding every site.
+if (! env('MULTISITE')) {
+    Config::define('WP_HOME', env('WP_HOME'));
+    Config::define('WP_SITEURL', env('WP_SITEURL'));
+}
+
+/**
+ * Optional Multisite support. See docs/multisite.md before enabling.
+ */
+Config::define('WP_ALLOW_MULTISITE', env('WP_ALLOW_MULTISITE') ?? false);
+
+if (env('MULTISITE')) {
+    Config::define('MULTISITE', true);
+    Config::define('SUBDOMAIN_INSTALL', env('SUBDOMAIN_INSTALL') ?? false);
+    Config::define('DOMAIN_CURRENT_SITE', env('DOMAIN_CURRENT_SITE') ?: parse_url(env('WP_HOME'), PHP_URL_HOST));
+    Config::define('PATH_CURRENT_SITE', env('PATH_CURRENT_SITE') ?: '/');
+    Config::define('SITE_ID_CURRENT_SITE', env('SITE_ID_CURRENT_SITE') ?? 1);
+    Config::define('BLOG_ID_CURRENT_SITE', env('BLOG_ID_CURRENT_SITE') ?? 1);
+}
 
 /**
  * Custom Content Directory
  */
 Config::define('CONTENT_DIR', '/app');
 Config::define('WP_CONTENT_DIR', $webroot_dir . Config::get('CONTENT_DIR'));
-Config::define('WP_CONTENT_URL', Config::get('WP_HOME') . Config::get('CONTENT_DIR'));
+Config::define('WP_CONTENT_URL', env('WP_HOME') . Config::get('CONTENT_DIR'));
 
 /**
  * DB settings
@@ -144,7 +161,7 @@ Config::define('NONCE_SALT', env('NONCE_SALT'));
 Config::define('AUTOMATIC_UPDATER_DISABLED', true);
 Config::define('DISABLE_WP_CRON', env('DISABLE_WP_CRON') ?: false);
 
-// Require administrator 2FA unless explicitly disabled for initial enrollment.
+// Require administrator and Multisite super-admin 2FA unless disabled for enrollment.
 Config::define('ENFORCE_TWO_FACTOR_POLICY', env('ENFORCE_TWO_FACTOR_POLICY') ?? true);
 
 // Allow FluentSMTP to read the Postmark Server API Token from the environment.

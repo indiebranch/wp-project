@@ -1,0 +1,6 @@
+# Optional subdomain network example. Copy to config.multisite.yaml, adjust
+# hostnames for your project, then run ddev restart on the host.
+# DDEV appends project_tld (indiebranch.ddev.site in this starter).
+# Add an entry for each local subsite so DDEV routes it and provisions HTTPS.
+additional_hostnames:
+    - site-one.wp-project

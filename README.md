@@ -198,6 +198,13 @@ Use `.env` for installation-specific values. See [`.env.example`](.env.example) 
 
 For local development, keep `WP_ENV='development'` and `WP_ENVIRONMENT_TYPE='local'`. There is no `local.php` configuration file.
 
+### Optional Multisite
+
+The starter remains single-site by default. Derived projects can enable a privately
+managed network using the environment settings, DDEV routing examples, and
+conversion steps in [the Multisite guide](docs/multisite.md). The guide also explains
+the registration policy behind the accepted signup activation-key advisory.
+
 ### Debugging and scheduled tasks
 
 With `WP_ENV='development'`, `config/environments/development.php` enables `WP_DEBUG` and defaults `WP_DEBUG_LOG` to `true`. Set `WP_DEBUG_LOG=false` in `.env` to disable logging, or provide an absolute log file path. `WP_DEBUG` itself is configured in PHP, not read from `.env`.

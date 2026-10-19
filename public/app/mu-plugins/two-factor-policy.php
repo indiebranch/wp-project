@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name: Two Factor Policy
- * Description: Requires two-factor authentication for administrators.
+ * Description: Requires two-factor authentication for administrators and Multisite super administrators.
  * Author: IndieBranch
  * Author URI: https://indiebranch.com
  * License: MIT
@@ -15,8 +15,8 @@ if (! defined('ABSPATH')) {
 }
 
 /**
- * Require a second factor at login for administrators while preserving the
- * Two-Factor plugin's existing requirement for all other users.
+ * Require a second factor at login for administrators and Multisite super
+ * administrators while preserving Two-Factor's requirement for all other users.
  *
  * This policy depends on Two-Factor being active and does not provide enrollment.
  * Administrators without a configured provider cannot log in, so they must
@@ -38,7 +38,8 @@ add_filter(
             return $is_required;
         }
 
-        if (in_array('administrator', $user->roles, true)) {
+        if (in_array('administrator', $user->roles, true)
+            || (is_multisite() && is_super_admin($user->ID))) {
             return true;
         }
 

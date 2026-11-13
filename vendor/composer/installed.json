@@ -28,6 +28,7 @@
                 "symfony/process": "^5 || ^6 || ^7"
             },
             "time": "2024-06-24T20:46:46+00:00",
+            "published-time": "2024-06-24T21:01:36+00:00",
             "type": "composer-plugin",
             "extra": {
                 "class": "Composer\\Installers\\Plugin",
@@ -172,6 +173,7 @@
                 "phpunit/phpunit": "^8.5.52 || ^9.6.34 || ^10.5.63 || ^11.5.55 || ^12.5.14"
             },
             "time": "2026-08-24T09:06:52+00:00",
+            "published-time": "2026-08-24T09:07:57+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -238,6 +240,7 @@
                 "phpunit/phpunit": ">=7.0"
             },
             "time": "2024-12-03T01:02:28+00:00",
+            "published-time": "2024-12-03T01:03:40+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -295,6 +298,7 @@
                 "phpunit/phpunit": "^8.5.54 || ^9.6.36 || ^10.5.64 || ^11.5.56 || ^12.5.33"
             },
             "time": "2026-08-24T00:54:40+00:00",
+            "published-time": "2026-08-24T01:09:05+00:00",
             "type": "library",
             "extra": {
                 "bamarni-bin": {
@@ -373,6 +377,7 @@
                 "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0"
             },
             "time": "2026-03-09T23:11:00+00:00",
+            "published-time": "2026-03-09T23:15:52+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -450,6 +455,7 @@
                 "laravel/pint": "^1.27"
             },
             "time": "2026-03-10T01:48:06+00:00",
+            "published-time": "2026-03-10T01:50:19+00:00",
             "type": "wordpress-muplugin",
             "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
@@ -492,8 +498,8 @@
         },
         {
             "name": "roots/wordpress",
-            "version": "7.1.3",
-            "version_normalized": "7.1.3.0",
+            "version": "7.1.4",
+            "version_normalized": "7.1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/roots/wordpress.git",
@@ -510,6 +516,7 @@
                 "roots/wordpress-no-content": "self.version"
             },
             "time": "2026-03-22T13:26:54+00:00",
+            "published-time": "2026-10-28T17:16:37+00:00",
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -525,7 +532,7 @@
             ],
             "support": {
                 "issues": "https://github.com/roots/wordpress/issues",
-                "source": "https://github.com/roots/wordpress/tree/7.1.3"
+                "source": "https://github.com/roots/wordpress/tree/7.1.4"
             },
             "funding": [
                 {
@@ -565,6 +572,7 @@
                 "phpunit/phpunit": "^8.5"
             },
             "time": "2026-03-22T03:17:23+00:00",
+            "published-time": "2026-03-22T03:22:05+00:00",
             "type": "composer-plugin",
             "extra": {
                 "class": "Roots\\Composer\\WordPressCorePlugin"
@@ -607,24 +615,24 @@
         },
         {
             "name": "roots/wordpress-no-content",
-            "version": "7.1.3",
-            "version_normalized": "7.1.3.0",
+            "version": "7.1.4",
+            "version_normalized": "7.1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WordPress/WordPress.git",
-                "reference": "7.1.3"
+                "reference": "7.1.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/release/wordpress-7.1.3-no-content.zip",
-                "reference": "7.1.3",
-                "shasum": "6c6f1135c8fd1e6f63c4d511e8be9e952d0b3433"
+                "url": "https://downloads.w.org/release/wordpress-7.1.4-no-content.zip",
+                "reference": "7.1.4",
+                "shasum": "1dd4bfa7b13dec725c0062a3fb62ba0536cb8699"
             },
             "require": {
                 "php": ">= 7.4"
             },
             "provide": {
-                "wordpress/core-implementation": "7.1.3"
+                "wordpress/core-implementation": "7.1.4"
             },
             "suggest": {
                 "ext-curl": "Performs remote request operations.",
@@ -642,7 +650,8 @@
                 "ext-xml": "Used for XML parsing, such as from a third-party site.",
                 "ext-zip": "Used for decompressing Plugins, Themes, and WordPress update packages."
             },
-            "time": "2026-10-06T16:28:51+00:00",
+            "time": "2026-10-28T17:15:58+00:00",
+            "published-time": "2026-10-28T17:16:09+00:00",
             "type": "wordpress-core",
             "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
@@ -704,6 +713,7 @@
                 "squizlabs/php_codesniffer": "^3.3"
             },
             "time": "2018-08-10T14:18:38+00:00",
+            "published-time": "2018-08-11T03:40:51+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -753,6 +763,7 @@
                 "ext-ctype": "For best performance"
             },
             "time": "2026-04-10T16:19:22+00:00",
+            "published-time": "2026-04-26T14:44:50+00:00",
             "type": "library",
             "extra": {
                 "thanks": {
@@ -816,17 +827,17 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.43.0",
-            "version_normalized": "1.43.0.0",
+            "version": "v1.43.3",
+            "version_normalized": "1.43.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "4d5d331bf731e0aedbc6b2f5e61135b7b7996a72"
+                "reference": "122889ed24dc000165bcbfd77ec412f15cbdfc6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/4d5d331bf731e0aedbc6b2f5e61135b7b7996a72",
-                "reference": "4d5d331bf731e0aedbc6b2f5e61135b7b7996a72",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/122889ed24dc000165bcbfd77ec412f15cbdfc6a",
+                "reference": "122889ed24dc000165bcbfd77ec412f15cbdfc6a",
                 "shasum": ""
             },
             "require": {
@@ -839,7 +850,8 @@
             "suggest": {
                 "ext-mbstring": "For best performance"
             },
-            "time": "2026-09-24T15:19:04+00:00",
+            "time": "2026-10-28T09:35:49+00:00",
+            "published-time": "2026-10-28T10:07:45+00:00",
             "type": "library",
             "extra": {
                 "thanks": {
@@ -880,7 +892,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.43.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.43.3"
             },
             "funding": [
                 {
@@ -921,6 +933,7 @@
                 "php": ">=7.2"
             },
             "time": "2026-09-25T15:50:05+00:00",
+            "published-time": "2026-09-30T10:23:35+00:00",
             "type": "library",
             "extra": {
                 "thanks": {
@@ -991,17 +1004,17 @@
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v5.7.0",
-            "version_normalized": "5.7.0.0",
+            "version": "v5.8.0",
+            "version_normalized": "5.8.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpdotenv/phpdotenv.git",
-                "reference": "301c07936b16d88628b126b01d082ba153cf4c40"
+                "reference": "96149103e62ac67e915f6d2ef59b72dee2e011e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpdotenv/phpdotenv/zipball/301c07936b16d88628b126b01d082ba153cf4c40",
-                "reference": "301c07936b16d88628b126b01d082ba153cf4c40",
+                "url": "https://api.github.com/repos/phpdotenv/phpdotenv/zipball/96149103e62ac67e915f6d2ef59b72dee2e011e0",
+                "reference": "96149103e62ac67e915f6d2ef59b72dee2e011e0",
                 "shasum": ""
             },
             "require": {
@@ -1021,7 +1034,8 @@
             "suggest": {
                 "ext-filter": "Required to use the boolean validator."
             },
-            "time": "2026-08-24T18:07:49+00:00",
+            "time": "2026-10-25T16:26:19+00:00",
+            "published-time": "2026-10-25T16:26:50+00:00",
             "type": "library",
             "extra": {
                 "bamarni-bin": {
@@ -1029,7 +1043,7 @@
                     "forward-command": false
                 },
                 "branch-alias": {
-                    "dev-master": "5.6-dev"
+                    "dev-master": "5.8-dev"
                 }
             },
             "installation-source": "dist",
@@ -1061,8 +1075,8 @@
                 "environment"
             ],
             "support": {
-                "issues": "https://github.com/vlucas/phpdotenv/issues",
-                "source": "https://github.com/vlucas/phpdotenv/tree/v5.7.0"
+                "issues": "https://github.com/phpdotenv/phpdotenv/issues",
+                "source": "https://github.com/phpdotenv/phpdotenv/tree/v5.8.0"
             },
             "funding": [
                 {
@@ -1078,21 +1092,22 @@
         },
         {
             "name": "wp-plugin/fluent-smtp",
-            "version": "2.4.1",
-            "version_normalized": "2.4.1.0",
+            "version": "2.4.5",
+            "version_normalized": "2.4.5.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/fluent-smtp/",
-                "reference": "tags/2.4.1"
+                "reference": "tags/2.4.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/fluent-smtp.2.4.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/fluent-smtp.2.4.5.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
             },
-            "time": "2026-09-27T14:25:58+00:00",
+            "time": "2026-11-04T13:15:11+00:00",
+            "published-time": "2026-11-04T13:15:11+00:00",
             "type": "wordpress-plugin",
             "installation-source": "dist",
             "notification-url": "https://wp-packages.org/downloads",
@@ -1126,7 +1141,8 @@
             "require": {
                 "composer/installers": "~1.0|~2.0"
             },
-            "time": "2026-09-19T13:51:12+00:00",
+            "time": "2026-09-29T13:03:58+00:00",
+            "published-time": "2026-09-29T13:03:58+00:00",
             "type": "wordpress-plugin",
             "installation-source": "dist",
             "notification-url": "https://wp-packages.org/downloads",
@@ -1146,21 +1162,22 @@
         },
         {
             "name": "wp-plugin/safe-svg",
-            "version": "2.5.1",
-            "version_normalized": "2.5.1.0",
+            "version": "2.5.2",
+            "version_normalized": "2.5.2.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/safe-svg/",
-                "reference": "tags/2.5.1"
+                "reference": "tags/2.5.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/safe-svg.2.5.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/safe-svg.2.5.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
             },
-            "time": "2026-09-22T15:31:55+00:00",
+            "time": "2026-10-26T22:32:07+00:00",
+            "published-time": "2026-10-26T22:32:07+00:00",
             "type": "wordpress-plugin",
             "installation-source": "dist",
             "notification-url": "https://wp-packages.org/downloads",
@@ -1180,21 +1197,22 @@
         },
         {
             "name": "wp-plugin/stream",
-            "version": "4.4.0",
-            "version_normalized": "4.4.0.0",
+            "version": "4.5.0",
+            "version_normalized": "4.5.0.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/stream/",
-                "reference": "tags/4.4.0"
+                "reference": "tags/4.5.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/stream.4.4.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/stream.4.5.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
             },
-            "time": "2026-08-31T13:45:59+00:00",
+            "time": "2026-11-12T12:35:48+00:00",
+            "published-time": "2026-11-12T12:35:48+00:00",
             "type": "wordpress-plugin",
             "installation-source": "dist",
             "notification-url": "https://wp-packages.org/downloads",
@@ -1228,7 +1246,8 @@
             "require": {
                 "composer/installers": "~1.0|~2.0"
             },
-            "time": "2026-09-28T05:01:58+00:00",
+            "time": "2026-09-29T13:03:58+00:00",
+            "published-time": "2026-09-29T13:03:58+00:00",
             "type": "wordpress-plugin",
             "installation-source": "dist",
             "notification-url": "https://wp-packages.org/downloads",
@@ -1262,7 +1281,8 @@
             "require": {
                 "composer/installers": "~1.0|~2.0"
             },
-            "time": "2026-08-24T20:16:16+00:00",
+            "time": "2026-09-29T13:03:58+00:00",
+            "published-time": "2026-09-29T13:03:58+00:00",
             "type": "wordpress-plugin",
             "installation-source": "dist",
             "notification-url": "https://wp-packages.org/downloads",
@@ -1296,7 +1316,8 @@
             "require": {
                 "composer/installers": "~1.0|~2.0"
             },
-            "time": "2026-05-20T21:56:34+00:00",
+            "time": "2026-09-29T13:03:58+00:00",
+            "published-time": "2026-09-29T13:03:58+00:00",
             "type": "wordpress-theme",
             "installation-source": "dist",
             "notification-url": "https://wp-packages.org/downloads",

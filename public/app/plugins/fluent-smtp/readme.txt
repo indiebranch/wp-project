@@ -3,7 +3,7 @@ Contributors: techjewel, wpmanageninja, heera, adreastrian
 Tags: smtp, wp mail smtp, amazon ses, sendgrid, mailgun
 Requires at least: 6.5
 Tested up to: 7.1
-Stable tag: 2.4.1
+Stable tag: 2.4.5
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -348,6 +348,15 @@ We use Patchstack to manage security reports. <a href="https://patchstack.com/da
 
 
 == Changelog ==
+
+= 2.4.5 (Date: Nov 04, 2026) =
+- Added the SendGrid EU region and an API region choice for SMTP2GO
+- Added support for in-memory attachments (such as generated PDF invoices) and inline images on API providers
+- Added a warning before resending a logged email whose attachments can't be included
+- Improved SMTP and Amazon SES connection settings: safer credential changes and better validation
+- Improved the admin UI: a clearer dashboard heatmap, better dark mode contrast, a badge for simulated emails, and formatted counts
+- Fixed Reply-To and sender address issues on several providers, and broken emails on Mailgun and PepiPost
+- Fixed empty message IDs in the email log, PHP 8.5 deprecation notices, and other minor issues
 
 = 2.4.1 (Date: Sep 27, 2026) =
 - Fixed Outlook / Office 365 connections failing to authorize on servers where Microsoft returned an HTML error page instead of a token

@@ -28,7 +28,6 @@
                 "symfony/process": "^5 || ^6 || ^7"
             },
             "time": "2024-06-24T20:46:46+00:00",
-            "published-time": "2024-06-24T21:01:36+00:00",
             "type": "composer-plugin",
             "extra": {
                 "class": "Composer\\Installers\\Plugin",
@@ -173,7 +172,6 @@
                 "phpunit/phpunit": "^8.5.52 || ^9.6.34 || ^10.5.63 || ^11.5.55 || ^12.5.14"
             },
             "time": "2026-08-24T09:06:52+00:00",
-            "published-time": "2026-08-24T09:07:57+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -240,7 +238,6 @@
                 "phpunit/phpunit": ">=7.0"
             },
             "time": "2024-12-03T01:02:28+00:00",
-            "published-time": "2024-12-03T01:03:40+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -298,7 +295,6 @@
                 "phpunit/phpunit": "^8.5.54 || ^9.6.36 || ^10.5.64 || ^11.5.56 || ^12.5.33"
             },
             "time": "2026-08-24T00:54:40+00:00",
-            "published-time": "2026-08-24T01:09:05+00:00",
             "type": "library",
             "extra": {
                 "bamarni-bin": {
@@ -377,7 +373,6 @@
                 "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0"
             },
             "time": "2026-03-09T23:11:00+00:00",
-            "published-time": "2026-03-09T23:15:52+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -455,7 +450,6 @@
                 "laravel/pint": "^1.27"
             },
             "time": "2026-03-10T01:48:06+00:00",
-            "published-time": "2026-03-10T01:50:19+00:00",
             "type": "wordpress-muplugin",
             "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
@@ -516,7 +510,6 @@
                 "roots/wordpress-no-content": "self.version"
             },
             "time": "2026-03-22T13:26:54+00:00",
-            "published-time": "2026-10-28T17:16:37+00:00",
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -572,7 +565,6 @@
                 "phpunit/phpunit": "^8.5"
             },
             "time": "2026-03-22T03:17:23+00:00",
-            "published-time": "2026-03-22T03:22:05+00:00",
             "type": "composer-plugin",
             "extra": {
                 "class": "Roots\\Composer\\WordPressCorePlugin"
@@ -651,7 +643,6 @@
                 "ext-zip": "Used for decompressing Plugins, Themes, and WordPress update packages."
             },
             "time": "2026-10-28T17:15:58+00:00",
-            "published-time": "2026-10-28T17:16:09+00:00",
             "type": "wordpress-core",
             "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
@@ -713,7 +704,6 @@
                 "squizlabs/php_codesniffer": "^3.3"
             },
             "time": "2018-08-10T14:18:38+00:00",
-            "published-time": "2018-08-11T03:40:51+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -763,7 +753,6 @@
                 "ext-ctype": "For best performance"
             },
             "time": "2026-04-10T16:19:22+00:00",
-            "published-time": "2026-04-26T14:44:50+00:00",
             "type": "library",
             "extra": {
                 "thanks": {
@@ -851,7 +840,6 @@
                 "ext-mbstring": "For best performance"
             },
             "time": "2026-10-28T09:35:49+00:00",
-            "published-time": "2026-10-28T10:07:45+00:00",
             "type": "library",
             "extra": {
                 "thanks": {
@@ -933,7 +921,6 @@
                 "php": ">=7.2"
             },
             "time": "2026-09-25T15:50:05+00:00",
-            "published-time": "2026-09-30T10:23:35+00:00",
             "type": "library",
             "extra": {
                 "thanks": {
@@ -1035,7 +1022,6 @@
                 "ext-filter": "Required to use the boolean validator."
             },
             "time": "2026-10-25T16:26:19+00:00",
-            "published-time": "2026-10-25T16:26:50+00:00",
             "type": "library",
             "extra": {
                 "bamarni-bin": {
@@ -1107,7 +1093,6 @@
                 "composer/installers": "~1.0|~2.0"
             },
             "time": "2026-11-04T13:15:11+00:00",
-            "published-time": "2026-11-04T13:15:11+00:00",
             "type": "wordpress-plugin",
             "installation-source": "dist",
             "notification-url": "https://wp-packages.org/downloads",
@@ -1142,7 +1127,6 @@
                 "composer/installers": "~1.0|~2.0"
             },
             "time": "2026-09-29T13:03:58+00:00",
-            "published-time": "2026-09-29T13:03:58+00:00",
             "type": "wordpress-plugin",
             "installation-source": "dist",
             "notification-url": "https://wp-packages.org/downloads",
@@ -1177,7 +1161,6 @@
                 "composer/installers": "~1.0|~2.0"
             },
             "time": "2026-10-26T22:32:07+00:00",
-            "published-time": "2026-10-26T22:32:07+00:00",
             "type": "wordpress-plugin",
             "installation-source": "dist",
             "notification-url": "https://wp-packages.org/downloads",
@@ -1212,7 +1195,6 @@
                 "composer/installers": "~1.0|~2.0"
             },
             "time": "2026-11-12T12:35:48+00:00",
-            "published-time": "2026-11-12T12:35:48+00:00",
             "type": "wordpress-plugin",
             "installation-source": "dist",
             "notification-url": "https://wp-packages.org/downloads",
@@ -1247,7 +1229,6 @@
                 "composer/installers": "~1.0|~2.0"
             },
             "time": "2026-09-29T13:03:58+00:00",
-            "published-time": "2026-09-29T13:03:58+00:00",
             "type": "wordpress-plugin",
             "installation-source": "dist",
             "notification-url": "https://wp-packages.org/downloads",
@@ -1282,7 +1263,6 @@
                 "composer/installers": "~1.0|~2.0"
             },
             "time": "2026-09-29T13:03:58+00:00",
-            "published-time": "2026-09-29T13:03:58+00:00",
             "type": "wordpress-plugin",
             "installation-source": "dist",
             "notification-url": "https://wp-packages.org/downloads",
@@ -1317,7 +1297,6 @@
                 "composer/installers": "~1.0|~2.0"
             },
             "time": "2026-09-29T13:03:58+00:00",
-            "published-time": "2026-09-29T13:03:58+00:00",
             "type": "wordpress-theme",
             "installation-source": "dist",
             "notification-url": "https://wp-packages.org/downloads",

@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'indiebranch/wp-project',
-        'pretty_version' => 'dev-4957873e90bc55ccec8228dfd25d0062ef9caa52',
-        'version' => 'dev-4957873e90bc55ccec8228dfd25d0062ef9caa52',
-        'reference' => '4957873e90bc55ccec8228dfd25d0062ef9caa52',
+        'pretty_version' => 'dev-53793e59b1832288ea2aade7333d6b483d166733',
+        'version' => 'dev-53793e59b1832288ea2aade7333d6b483d166733',
+        'reference' => '53793e59b1832288ea2aade7333d6b483d166733',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -29,9 +29,9 @@
             'dev_requirement' => false,
         ),
         'indiebranch/wp-project' => array(
-            'pretty_version' => 'dev-4957873e90bc55ccec8228dfd25d0062ef9caa52',
-            'version' => 'dev-4957873e90bc55ccec8228dfd25d0062ef9caa52',
-            'reference' => '4957873e90bc55ccec8228dfd25d0062ef9caa52',
+            'pretty_version' => 'dev-53793e59b1832288ea2aade7333d6b483d166733',
+            'version' => 'dev-53793e59b1832288ea2aade7333d6b483d166733',
+            'reference' => '53793e59b1832288ea2aade7333d6b483d166733',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b0828736930cf24c307927e5e9ed2ade",
+    "content-hash": "1ac70f087b6efe9dd82bfd2df4a40c90",
     "packages": [
         {
             "name": "composer/installers",
@@ -1136,15 +1136,15 @@
         },
         {
             "name": "wp-plugin/stream",
-            "version": "4.5.0",
+            "version": "4.5.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/stream/",
-                "reference": "tags/4.5.0"
+                "reference": "tags/4.5.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/stream.4.5.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/stream.4.5.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -1163,7 +1163,7 @@
                 "issues": "https://wordpress.org/support/plugin/stream",
                 "source": "https://plugins.svn.wordpress.org/stream"
             },
-            "time": "2026-11-12T12:35:48+00:00"
+            "time": "2026-11-16T17:18:35+00:00"
         },
         {
             "name": "wp-plugin/two-factor",
